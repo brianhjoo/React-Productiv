@@ -12,6 +12,8 @@ import React, { useState } from "react";
 
 function TodoForm() {
 
+  // TODO: add state
+
   /** Update form input. */
   function handleChange(evt) { }
 
