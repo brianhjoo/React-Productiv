@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 
 import TopTodo from "./TopTodo";
 import EditableTodoList from "./EditableTodoList";
+import TodoForm from "./TodoForm";
 
 /** App for managing a todo list.
  *
@@ -20,10 +21,17 @@ function TodoApp({ initialTodos }) {
 
   /** add a new todo to list */
   function create(newTodo) {
+    let createdTodo = {...newTodo, id: uuid()};
+    setTodos(todos => [...todos, createdTodo]);
   }
+
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
+    console.log(updatedTodo)
+    setTodos(todos => todos.map(
+      todo => todo.id === updatedTodo.id ? updatedTodo : todo
+    ));
   }
 
   /** delete a todo by id */
@@ -39,20 +47,25 @@ function TodoApp({ initialTodos }) {
         <div className="row">
 
           <div className="col-md-6">
-            <EditableTodoList todos={todos} update={update} remove={remove} /> OR
-            <span className="text-muted">You have no todos.</span>
+            <h3 class="mb-3">Todos</h3>
+            {todos.length ? 
+              <EditableTodoList 
+                todos={todos} 
+                update={update} 
+                remove={remove} 
+              /> :
+            <span className="text-muted">You have no todos.</span> }
           </div>
 
           <div className="col-md-6">
-            (if no top todo, omit this whole section)
             <section className="mb-4">
               <h3>Top Todo</h3>
-              <TopTodo />
+              <TopTodo todos={todos}/>
             </section>
 
             <section>
               <h3 className="mb-3">Add Nü</h3>
-              FIXME
+              <TodoForm create={create}/>
             </section>
           </div>
 

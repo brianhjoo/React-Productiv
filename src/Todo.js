@@ -11,7 +11,7 @@ import React from "react";
 function Todo({ id, title, priority, description }) {
   return (
       <div className="Todo">
-        <div><b>{title}</b> <small>{priority}</small></div>
+        <div><b>{title}</b> <small>(priority: {priority})</small></div>
         <div><small>{description}</small></div>
       </div>
   );
