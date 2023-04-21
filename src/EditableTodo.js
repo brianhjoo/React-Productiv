@@ -4,21 +4,26 @@ import TodoForm from "./TodoForm";
 import './EditableTodo.css';
 
 /** Show editable todo item.
- *
  * Props
- * - todo
+ * - id
+ * - title
+ * - description
+ * - priority
  * - update(): fn to call to update a todo
  * - remove(): fn to call to remove a todo
+ * 
+ * State
+ *  - isEditing: boolean T or F
  *
  * EditableTodoList -> EditableTodo -> { Todo, TodoForm }
  */
 
 function EditableTodo({ id, title, description, priority, update, remove }) {
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   /** Toggle if this is being edited */
   function toggleEdit() {
-    setIsEditing(!isEditing);
+    setIsEditing(isEditing => !isEditing);
   }
 
   /** Call remove fn passed to this. */
@@ -29,14 +34,21 @@ function EditableTodo({ id, title, description, priority, update, remove }) {
   /** Edit form saved; toggle isEditing and update in ancestor. */
   function handleSave(formData) {
     update({ ...formData, id: id });
-
-    setIsEditing(true);
+    setIsEditing(false);
   }
 
   return (
     <div className="EditableTodo">
-      {isEditing ? null :
-        <TodoForm handleSave={handleSave} initialFormData={{ title, description, priority }} />}
+      {
+        isEditing 
+        ? 
+          <TodoForm 
+            handleSave={handleSave} 
+            initialFormData={{ title, description, priority }}
+          />
+        :
+          null
+      }
       <div className="mb-3">
         <div className="float-end text-sm-end">
           <button
@@ -57,7 +69,6 @@ function EditableTodo({ id, title, description, priority, update, remove }) {
           priority={priority}
         />
       </div>
-
     </div>
   );
 }

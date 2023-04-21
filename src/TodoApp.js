@@ -35,10 +35,9 @@ function TodoApp({ initialTodos }) {
 
   /** delete a todo by id */
   function remove(id) {
-    const newTodos = todos.filter(todo => {
+    setTodos(currTodos => currTodos.filter(todo => {
       return todo.id !== id;
-    });
-    setTodos(newTodos);
+    }));
   }
 
   return (
@@ -47,13 +46,16 @@ function TodoApp({ initialTodos }) {
 
         <div className="col-md-6">
           <h3 className="mb-3">Todos</h3>
-          {todos.length ?
-            <EditableTodoList
-              todos={todos}
-              update={update}
-              remove={remove}
-            /> :
-            <span className="text-muted">You have no todos.</span>}
+          {todos.length 
+            ?
+              <EditableTodoList
+                todos={todos}
+                update={update}
+                remove={remove}
+              /> 
+            :
+              <span className="text-muted">You have no todos.</span>
+          }
         </div>
 
         <div className="col-md-6">

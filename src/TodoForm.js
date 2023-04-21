@@ -8,10 +8,12 @@ const initialState = { title: "", description: "", priority: 1 };
  * Props:
  * - initialFormData
  * - handleSave: function to call in parent.
+ * 
+ * State:
+ *  - formData: object for form {title,description,priority}
  *
  * { TodoApp, EditableTodo } -> TodoForm
  */
-// { title, description, priority }
 function TodoForm({ handleSave, initialFormData = initialState }) {
   const [formData, setFormData] = useState(initialFormData);
 
@@ -28,9 +30,9 @@ function TodoForm({ handleSave, initialFormData = initialState }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
+    // Convert priority to num
+    formData.priority = +formData.priority;
     handleSave(formData);
-
-
     setFormData(initialState);
   }
 
