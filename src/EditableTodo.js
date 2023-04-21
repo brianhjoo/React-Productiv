@@ -14,11 +14,11 @@ import './EditableTodo.css';
  */
 
 function EditableTodo({ id, title, description, priority, update, remove }) {
-  const [toggle, setToggle] = useState(true);
+  const [isEditing, setIsEditing] = useState(true);
 
   /** Toggle if this is being edited */
   function toggleEdit() {
-    setToggle(!toggle);
+    setIsEditing(!isEditing);
   }
 
   /** Call remove fn passed to this. */
@@ -28,12 +28,15 @@ function EditableTodo({ id, title, description, priority, update, remove }) {
 
   /** Edit form saved; toggle isEditing and update in ancestor. */
   function handleSave(formData) {
-    update(formData);
+    update({ ...formData, id: id });
+
+    setIsEditing(true);
   }
 
   return (
     <div className="EditableTodo">
-      {toggle ? null : <TodoForm handleSave={handleSave}/>}
+      {isEditing ? null :
+        <TodoForm handleSave={handleSave} initialFormData={{ title, description, priority }} />}
       <div className="mb-3">
         <div className="float-end text-sm-end">
           <button
