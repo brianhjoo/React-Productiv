@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopTodo Tests matches snapshot 1`] = `
+<div>
+  <div
+    class="TopTodo"
+  >
+    <div
+      class="Todo"
+    >
+      <div>
+        <b>
+          important todo
+        </b>
+         
+        <small>
+          (priority: 
+          1
+          )
+        </small>
+      </div>
+      <div>
+        <small>
+          very important
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+`;
